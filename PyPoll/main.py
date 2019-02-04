@@ -84,3 +84,18 @@ elif liCount > khanCount and liCount > correyCount and liCount > otooleyCount:
 else:
     print("Winner: O'Tooley")
 print("-----------------------")
+
+Candidate = ["Khan", "Correy", "Li", "O'Tooley"]
+PercentOfVotes = ["63.0%", "20.0%", "14.0%", "3.0%"]
+TotalNumberOfVotes = ["2218231", "704200", "492940", "105630"]
+
+results = zip(Candidate, PercentOfVotes, TotalNumberOfVotes)
+
+output_file = os.path.join("output.csv")
+
+with open(output_file, "w", newline="") as datafile:
+    writer = csv.writer(datafile)
+
+    writer.writerow(["Candidates", "Percent of Votes", "Total Number of Votes"])
+
+    writer.writerows(results)
