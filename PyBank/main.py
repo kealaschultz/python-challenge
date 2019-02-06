@@ -1,6 +1,5 @@
 import csv
 import os
-import pandas as pd
 count = 0
 
 budget_csv = os.path.join("budget_data.csv")
@@ -27,10 +26,20 @@ with open(budget_csv, 'r') as csvfile:
 print("Total: $" + str(total))
 
 #Average Change
+with open(budget_csv, 'r') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    next(csvfile)
 
-for x in range(2,87)
-    lastrowamount = int(row[1])
-    currentavg = int(row[1]) - lastrowamount
+    total_pl = []
+    temp = 0
+
+    for row in csvreader:
+        if temp!=0:
+            total_pl.append(int(row[1])-temp)
+        temp = int(row[1])
+    print("Average  Change: $" + str(sum(total_pl)/ len(total_pl)))
+
 #The greatest increase in profits (date and amount) over the entire period
-
+print("Greatest Increase in Profits: " + str(max(total_pl)))
 #The greatest decrease in losses (date and amount) over the entire period
+print("Greatest Decrease in Profits: " + str(min(total_pl)))
