@@ -31,15 +31,35 @@ with open(budget_csv, 'r') as csvfile:
     next(csvfile)
 
     total_pl = []
+    month = []
     temp = 0
 
     for row in csvreader:
         if temp!=0:
             total_pl.append(int(row[1])-temp)
+            month.append(row[0])
         temp = int(row[1])
+
+
     print("Average  Change: $" + str(sum(total_pl)/ len(total_pl)))
 
 #The greatest increase in profits (date and amount) over the entire period
-print("Greatest Increase in Profits: " + str(max(total_pl)))
+print("Greatest Increase in Profits: " + str(month[total_pl.index(max(total_pl))]) + " ($" + str(max(total_pl)) + ")")
+
 #The greatest decrease in losses (date and amount) over the entire period
-print("Greatest Decrease in Profits: " + str(min(total_pl)))
+print("Greatest Decrease in Profits: " +  str(month[total_pl.index(min(total_pl))]) + " ($" + str(min(total_pl)) + ")")
+
+#Export
+totalTitles = ["Total Months", "Total", "Average Change", "Greatest Increase in Profits", "Greatest Decrease in Profits"]
+totalAmounts = ["86", "$38382578", "$-2315.12","Feb-2012 ($1926159)","Sep-2013 ($-2196167)"]
+
+results = zip(totalTitles, totalAmounts)
+
+output_file = os.path.join("output.csv")
+
+with open(output_file, "w", newline="") as datafile:
+    writer = csv.writer(datafile)
+
+    writer.writerow(["Financial Analysis"])
+
+    writer.writerows(results)
